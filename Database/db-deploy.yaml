@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-nginx # host
+  labels:
+    app: nginx
+spec:
+  ports:
+  - name: db-nginx
+    port: 3306
+    targetPort: 3306
+  selector:
+    app: nginx
+    tier: mysql
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: db-nginx
+        image: mariadb:latest
+        env: 
+        - name: MYSQL_ROOT_PASSWORD  #set database password from secret
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password  
+
+        - name: MYSQL_USER  #set database username from secret
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: username
+
+        - name:  MYSQL_DATABASE  #set database name from configmap
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: dbName
+
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        volumeMounts:
+         - name: nginx-persistent-storage
+           mountPath: /var/lib/mysql
+      volumes:
+      - name: nginx-persistent-storage
+        persistentVolumeClaim:
+          claimName: nginx-pvc-db

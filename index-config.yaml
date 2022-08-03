@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: index-conf
+  namespace: default
+data:
+  nginx.conf: |
+    http {
+
+        types {
+          text/css     css;
+          text/html    html;
+        }
+        server {
+          listen       80;
+          root   /Users/supapornchongwarin/Nginx-app-kube;
+          
+        }    
+     } 
+       
+      
+    
+
+    events {
+    
+    
+    }
