@@ -35,4 +35,8 @@ example nginx app use nginx-configMap run on kubernetes
 If Running , go to you're localhost ( this example is http://localhost:30008 )
 
 
+<img width="794" alt="sc4" src="https://user-images.githubusercontent.com/83863431/182584002-bb95c015-cfb1-49ba-967f-d6b10124b571.png">
+
+
+
 And I have example database run on kubernetes . Good luck!
