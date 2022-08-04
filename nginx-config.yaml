@@ -45,7 +45,7 @@ data:
     </head>
 
     <body>
-    <h1>Hello, This nginx app on kubernetes use configMap by Nok!</h1>
+    <h1>Welcome to nginx!, This  is nginx app on kubernetes use configMap!</h1>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
